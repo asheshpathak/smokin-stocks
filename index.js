@@ -11,7 +11,9 @@ var fyers = new fyersModel({
 
 fyers.setAppId("4IBAWZ841D-100");
 
-fyers.setRedirectUrl("https://fyersapiapp.com");
+fyers.setRedirectUrl(
+  "https://morning-river-75539-0158946b6190.herokuapp.com/get/authcode"
+);
 
 var URL = fyers.generateAuthCode();
 
