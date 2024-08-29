@@ -36,7 +36,7 @@ app.get("/get/authcode", (req, res) => {
 });
 
 app.get("/get/accesstoken", (req, res) => {
-  const authCode = req.query.authCode;
+  const authCode = req.query.auth_code;
   fyers
     .generate_access_token({
       client_id: "4IBAWZ841D-100",
