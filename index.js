@@ -48,7 +48,7 @@ app.get("/get/accesstoken", (req, res) => {
         fyers.setAccessToken(response.access_token);
         res.redirect("http://localhost:3000/auth-success");
       } else {
-        res.send("error generating access token", response);
+        res.send(response);
       }
     });
 });
