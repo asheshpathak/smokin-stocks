@@ -28,6 +28,10 @@ app.get("/get/url", (req, res) => {
   res.json({ url: URL });
 });
 
+app.get("/get/authcode", (req, res) => {
+  console.log(req.query);
+});
+
 app.listen(PORT, () => {
   console.log(`Listening on PORT : ${PORT}`);
 });
