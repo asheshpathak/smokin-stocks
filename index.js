@@ -22,6 +22,10 @@ app.get("/", (req, res) => {
   res.send("Working!");
 });
 
+app.get("/get/url", (req, res) => {
+  res.json({ url: URL });
+});
+
 app.listen(PORT, () => {
   console.log(`Listening on PORT : ${PORT}`);
 });
