@@ -32,7 +32,7 @@ app.get("/get/url", (req, res) => {
   res.json({ url: URL });
 });
 
-app.get("/get/authcode:", (req, res) => {
+app.get("/get/authcode", (req, res) => {
   console.log("request query is :", req.query);
   res.send("OK");
 });
