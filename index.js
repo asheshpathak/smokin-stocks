@@ -33,8 +33,8 @@ app.get("/get/url", (req, res) => {
 });
 
 app.get("/get/authcode", (req, res) => {
-  console.log("request query is :", req.query);
-  res.send("OK");
+  console.log("request query is :", req.query.auth_code);
+  res.redirect(`http://localhost:3000?code=${req.query.auth_code}`);
 });
 
 app.listen(PORT, () => {
