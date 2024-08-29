@@ -53,21 +53,23 @@ app.get("/get/accesstoken", (req, res) => {
     });
 });
 
+app.get("/get/quotes", (req, res) => {
+  fyers
+    .getQuotes(["NSE:SBIN-EQ", "NSE:TCS-EQ"])
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Listening on PORT : ${PORT}`);
 });
 
 // fyers
 //   .get_profile()
-//   .then((response) => {
-//     console.log(response);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-// fyers
-//   .getQuotes(["NSE:SBIN-EQ", "NSE:TCS-EQ"])
 //   .then((response) => {
 //     console.log(response);
 //   })
