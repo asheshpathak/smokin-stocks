@@ -22,8 +22,6 @@ var URL = fyers.generateAuthCode();
 //use url to generate auth code
 console.log(URL);
 
-var authcode = "authcode generated above";
-
 app.get("/", (req, res) => {
   res.send("Working!");
 });
@@ -33,29 +31,31 @@ app.get("/get/url", (req, res) => {
 });
 
 app.get("/get/authcode", (req, res) => {
-  console.log("request query is :", req.query.auth_code);
-  res.redirect(
-    `http://localhost:3000/auth-success?code=${req.query.auth_code}`
-  );
+  const authCode = req.query.auth_code;
+  res.redirect(`/get/accesstoken?auth_code=${authCode}`);
+});
+
+app.get("/get/accesstoken", (req, res) => {
+  const authCode = req.query.authCode;
+  fyers
+    .generate_access_token({
+      client_id: "4IBAWZ841D-100",
+      secret_key: "VATU2SK70V",
+      auth_code: authCode,
+    })
+    .then((response) => {
+      if (response.s == "ok") {
+        fyers.setAccessToken(response.access_token);
+        res.redirect("http://localhost:3000/auth-success");
+      } else {
+        res.send("error generating access token", response);
+      }
+    });
 });
 
 app.listen(PORT, () => {
   console.log(`Listening on PORT : ${PORT}`);
 });
-
-// fyers
-//   .generate_access_token({
-//     client_id: "4IBAWZ841D-100",
-//     secret_key: "VATU2SK70V",
-//     auth_code: authcode,
-//   })
-//   .then((response) => {
-//     if (response.s == "ok") {
-//       fyers.setAccessToken(response.access_token);
-//     } else {
-//       console.log("error generating access token", response);
-//     }
-//   });
 
 // fyers
 //   .get_profile()
