@@ -49,9 +49,8 @@ app.get("/get/accesstoken", (req, res) => {
         fyers
           .get_profile()
           .then((response) => {
-            res.redirect(
-              `http://localhost:3000/auth-success?X-Authenticated-User=${response}`
-            );
+            res.setHeader("X-Authenticated-User", response);
+            res.redirect(`http://localhost:3000/auth-success`);
           })
           .catch((err) => {
             res.send(err);
