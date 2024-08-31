@@ -46,7 +46,16 @@ app.get("/get/accesstoken", (req, res) => {
     .then((response) => {
       if (response.s == "ok") {
         fyers.setAccessToken(response.access_token);
-        res.redirect("http://localhost:3000/auth-success");
+        fyers
+          .get_profile()
+          .then((response) => {
+            res.redirect(
+              `http://localhost:3000/auth-success?X-Authenticated-User=${response}`
+            );
+          })
+          .catch((err) => {
+            res.send(err);
+          });
       } else {
         res.send(response);
       }
@@ -67,15 +76,6 @@ app.get("/get/quotes", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening on PORT : ${PORT}`);
 });
-
-// fyers
-//   .get_profile()
-//   .then((response) => {
-//     console.log(response);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
 
 // fyers
 //   .getMarketDepth({ symbol: ["NSE:SBIN-EQ", "NSE:TCS-EQ"], ohlcv_flag: 1 })
