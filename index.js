@@ -53,11 +53,15 @@ app.get("/get/accesstoken", (req, res) => {
             const payload = {
               userProfile: response,
             };
-            console.log(response);
             const token = jwt.sign(payload, "my-secret-key", {
               expiresIn: "10h",
             });
-            res.cookie("auth_token", token, { httpOnly: true, secure: true });
+            console.log(token);
+            res.cookie("auth_token", token, {
+              httpOnly: true,
+              secure: process.env.NODE_ENV === "production",
+              sameSite: "none",
+            });
             res.redirect(`http://localhost:3000/auth-success`);
           })
           .catch((err) => {
