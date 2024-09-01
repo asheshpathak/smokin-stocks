@@ -58,9 +58,10 @@ app.get("/get/accesstoken", (req, res) => {
             });
             console.log(token);
             res.cookie("auth_token", token, {
-              httpOnly: true,
-              secure: process.env.NODE_ENV === "production",
-              sameSite: "none",
+              httpOnly: false,
+              secure: false,
+              sameSite: "Lax",
+              // domain: "http://localhost:3000",
             });
             res.redirect(`http://localhost:3000/auth-success`);
           })
