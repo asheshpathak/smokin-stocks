@@ -53,7 +53,7 @@ app.get("/get/accesstoken", (req, res) => {
             const payload = {
               userProfile: response,
             };
-
+            console.log(response);
             const token = jwt.sign(payload, "my-secret-key", {
               expiresIn: "10h",
             });
