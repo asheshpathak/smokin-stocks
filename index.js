@@ -2,7 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const app = express();
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // or the frontend's origin
+    credentials: true,
+  })
+);
 const PORT = process.env.PORT || 5999;
 var fyersModel = require("fyers-api-v3").fyersModel;
 var fyers = new fyersModel({
@@ -60,8 +66,9 @@ app.get("/get/accesstoken", (req, res) => {
             res.cookie("auth_token", token, {
               httpOnly: false,
               secure: false,
-              sameSite: "Lax",
-              // domain: "http://localhost:3000",
+              sameSite: "None",
+              domain: "localhost",
+              path: "/",
             });
             res.redirect(`http://localhost:3000/auth-success`);
           })
