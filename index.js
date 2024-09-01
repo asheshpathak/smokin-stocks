@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 5999;
@@ -49,7 +50,14 @@ app.get("/get/accesstoken", (req, res) => {
         fyers
           .get_profile()
           .then((response) => {
-            res.setHeader("X-Authenticated-User", response);
+            const payload = {
+              userProfile: response,
+            };
+
+            const token = jwt.sign(payload, "my-secret-key", {
+              expiresIn: "10h",
+            });
+            res.setHeader("Authorization", `Bearer ${token}`);
             res.redirect(`http://localhost:3000/auth-success`);
           })
           .catch((err) => {
