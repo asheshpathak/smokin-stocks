@@ -66,7 +66,7 @@ app.get("/get/accesstoken", (req, res) => {
             res.cookie("auth_token", token, {
               httpOnly: false,
               secure: false,
-              sameSite: "None",
+              sameSite: "Lax",
               path: "/",
             });
             res.redirect(`http://localhost:3000/auth-success`);
