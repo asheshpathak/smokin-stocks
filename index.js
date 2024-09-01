@@ -67,7 +67,6 @@ app.get("/get/accesstoken", (req, res) => {
               httpOnly: false,
               secure: false,
               sameSite: "None",
-              domain: "localhost",
               path: "/",
             });
             res.redirect(`http://localhost:3000/auth-success`);
