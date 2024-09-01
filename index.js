@@ -57,7 +57,7 @@ app.get("/get/accesstoken", (req, res) => {
             const token = jwt.sign(payload, "my-secret-key", {
               expiresIn: "10h",
             });
-            res.setHeader("Authorization", `Bearer ${token}`);
+            res.cookie("auth_token", token, { httpOnly: true, secure: true });
             res.redirect(`http://localhost:3000/auth-success`);
           })
           .catch((err) => {
